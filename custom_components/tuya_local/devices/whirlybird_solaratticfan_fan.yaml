@@ -1,0 +1,177 @@
+name: Solar attic fan
+products:
+  - id: dme0pik3ftlv5ebk
+    manufacturer: Whirlybird
+    model: Solar attic roof fan V02
+entities:
+  - entity: fan
+    dps:
+      - id: 107
+        type: boolean
+        name: switch
+      - id: 101
+        type: string
+        name: speed
+        mapping:
+          - dps_val: level_1
+            value: 25
+          - dps_val: level_2
+            value: 50
+          - dps_val: level_3
+            value: 75
+          - dps_val: level_4
+            value: 100
+  - entity: select
+    name: Speed level
+    category: config
+    dps:
+      - id: 101
+        type: string
+        name: option
+        mapping:
+          - dps_val: level_1
+            value: "Speed 1"
+          - dps_val: level_2
+            value: "Speed 2"
+          - dps_val: level_3
+            value: "Speed 3"
+          - dps_val: level_4
+            value: "Speed 4"
+          - dps_val: level_5
+            value: auto
+  - entity: sensor
+    class: temperature
+    category: diagnostic
+    dps:
+      - id: 103
+        type: integer
+        name: sensor
+        unit: C
+        class: measurement
+        optional: true
+  - entity: sensor
+    class: humidity
+    category: diagnostic
+    dps:
+      - id: 102
+        type: integer
+        name: sensor
+        unit: "%"
+        class: measurement
+        optional: true
+  - entity: binary_sensor
+    class: problem
+    category: diagnostic
+    dps:
+      - id: 67
+        type: integer
+        name: sensor
+        optional: true
+        mapping:
+          - dps_val: 0
+            value: false
+          - value: true
+      - id: 67
+        type: integer
+        name: fault_code
+        optional: true
+  - entity: switch
+    name: Auto mode
+    category: config
+    dps:
+      - id: 108
+        type: boolean
+        name: switch
+        optional: true
+  - entity: switch
+    name: Auto temperature control
+    category: config
+    dps:
+      - id: 110
+        type: boolean
+        name: switch
+        optional: true
+  - entity: switch
+    name: Auto humidity control
+    category: config
+    dps:
+      - id: 109
+        type: boolean
+        name: switch
+        optional: true
+  - entity: switch
+    name: Backup grid power
+    category: config
+    dps:
+      - id: 114
+        type: boolean
+        name: switch
+        optional: true
+  - entity: number
+    name: Target temperature
+    class: temperature
+    category: config
+    dps:
+      - id: 105
+        type: integer
+        name: value
+        unit: C
+        optional: true
+        range:
+          min: 1
+          max: 50
+  - entity: number
+    name: Target humidity
+    class: humidity
+    category: config
+    dps:
+      - id: 104
+        type: integer
+        name: value
+        unit: "%"
+        optional: true
+        range:
+          min: 1
+          max: 99
+  - entity: number
+    name: Re-on timer
+    category: config
+    dps:
+      - id: 106
+        type: integer
+        name: value
+        unit: h
+        optional: true
+        range:
+          min: 1
+          max: 24
+  - entity: sensor
+    name: Solar power
+    class: enum
+    category: diagnostic
+    dps:
+      - id: 112
+        type: integer
+        name: sensor
+        optional: true
+        mapping:
+          - dps_val: 0
+            value: no input
+          - dps_val: 1
+            value: active
+  - entity: sensor
+    name: Backup power
+    class: enum
+    category: diagnostic
+    dps:
+      - id: 113
+        type: integer
+        name: sensor
+        optional: true
+        mapping:
+          - dps_val: 0
+            value: disconnected
+          - dps_val: 1
+            value: standby
+          - dps_val: 2
+            value: powering fan
